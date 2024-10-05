@@ -82,12 +82,39 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.requestAuth && !store.state.user.is_login) {
-    next({ name: "user_account_login" });
+  let jwt_token = localStorage.getItem('jwt_token');
+
+  if (jwt_token) {
+    store.commit("updatePullingInfo", true);
+    // 如果 token 存在，并且用户信息还未获取过
+    if (!store.state.user.is_login) {
+      store.commit("updateToken", jwt_token);
+      console.log(jwt_token);
+      store.dispatch("getInfo", {
+        success() {
+          next(); // 获取用户信息成功后继续导航
+        },
+        error() {
+          // 如果获取失败可以根据情况处理
+          alert("token无效,请重新登录!");
+        }
+      });
+    }
+    else {
+      next(); // 已经登录的情况，继续导航
+    }
   }
   else {
-    next();
+    // 如果目标路由需要认证，但用户未登录
+    if (to.meta.requestAuth && !store.state.user.is_login) {
+      next({ name: "user_account_login" });
+    }
+    else {
+      store.commit("updatePullingInfo", false);
+      next(); // 如果目标路由不需要认证，继续导航
+    }
   }
-})
+});
+
 
 export default router
