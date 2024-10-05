@@ -44,9 +44,8 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         }
 
         User user = userMapper.selectById(Integer.parseInt(userid));
-
         if (user == null) {
-            throw new RuntimeException("用户名未登录");
+            throw new RuntimeException("用户名不存在");
         }
 
         UserDetailsImpl loginUser = new UserDetailsImpl(user);

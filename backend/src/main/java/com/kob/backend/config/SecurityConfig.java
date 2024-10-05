@@ -33,14 +33,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        http.csrf().disable() // 禁用CSRF保护
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)// 禁用Session，采用无状态机制
                 .and()
-                .authorizeRequests()
-                .antMatchers("/user/account/token", "/user/account/register").permitAll()
-                .antMatchers(HttpMethod.OPTIONS).permitAll()
-                .anyRequest().authenticated();
+                .authorizeRequests() //开始配置请求权限
+                .antMatchers("/user/account/token", "/user/account/register").permitAll()// 允许未认证用户访问这些URL
+                .antMatchers(HttpMethod.OPTIONS).permitAll() // 允许所有OPTIONS请求
+                .anyRequest().authenticated();// 其他请求都需要认证
 
-        http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class); // 在用户名密码认证过滤器之前添加JWT过滤器
     }
 }
