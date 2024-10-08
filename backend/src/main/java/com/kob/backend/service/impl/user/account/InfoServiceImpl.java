@@ -19,9 +19,7 @@ public class InfoServiceImpl implements InfoService
     {
         UsernamePasswordAuthenticationToken authenticationToken =
                 (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
-
         UserDetailsImpl loginUser = (UserDetailsImpl) authenticationToken.getPrincipal();
-
         User user = loginUser.getUser();
 
         Map<String, String> map = new HashMap<>();

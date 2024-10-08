@@ -97,6 +97,8 @@ router.beforeEach((to, from, next) => {
         error() {
           // 如果获取失败可以根据情况处理
           alert("token无效,请重新登录!");
+          localStorage.removeItem('jwt_token'); // 清除无效 token
+          next({ name: "user_account_login" }); // 跳转到登录界面
         }
       });
     }
