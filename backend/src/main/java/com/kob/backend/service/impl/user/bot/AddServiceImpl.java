@@ -65,6 +65,7 @@ public class AddServiceImpl implements AddService
         if(content.length() > 10000)
         {
             map.put("message", "代码长度不能大于10000");
+            return map;
         }
 
         Date now = new Date();
