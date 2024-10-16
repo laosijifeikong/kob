@@ -40,10 +40,11 @@ export default {
             $.ajax({
                 url: "http://localhost:8088/user/account/token",
                 type: "post",
-                data: {
+                data: JSON.stringify({
                     username: data.username,
                     password: data.password,
-                },
+                }),
+                contentType: "application/json", // 必须要设置为 application/json
                 success(resp) {
                     if (resp.message === "success") {
                         localStorage.setItem("jwt_token", resp.token);

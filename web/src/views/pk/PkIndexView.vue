@@ -55,18 +55,21 @@ export default {
                 } else if (data.event === "result") {
                     console.log(data);
                     const game = store.state.pk.gameObject;
-                    const [snake0, snake1] = game.snakes;
+                    if (game != null) {
+                        const [snake0, snake1] = game.snakes;
 
-                    if (data.loser === "all") {
-                        snake0.status = snake1.status = "die";
+                        if (data.loser === "all") {
+                            snake0.status = snake1.status = "die";
+                        }
+                        else if (data.loser === "A") {
+                            snake0.status = "die";
+                        }
+                        else if (data.loser === "B") {
+                            snake1.status = "die";
+                        }
+                        store.commit("updateLoser", data.loser);
                     }
-                    else if (data.loser === "A") {
-                        snake0.status = "die";
-                    }
-                    else if (data.loser === "B") {
-                        snake1.status = "die";
-                    }
-                    store.commit("updateLoser", data.loser);
+
                 }
             }
 
