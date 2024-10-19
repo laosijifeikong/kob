@@ -12,6 +12,5 @@ public class MatchingSystemApplication
     {
         MatchingServiceImpl.matchingPool.start();  //启动匹配池线程
         SpringApplication.run(MatchingSystemApplication.class, args);
-
     }
 }
