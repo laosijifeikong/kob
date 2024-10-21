@@ -30,7 +30,7 @@ public class WebSocketServer
     private User user;
     private Session session = null;
 
-    private static UserMapper userMapper;
+    public static UserMapper userMapper;
     public static RecordMapper recordMapper;
     public static BotMapper botMapper;
     public static RestTemplate restTemplate;
@@ -59,9 +59,9 @@ public class WebSocketServer
     public void onOpen(Session session, @PathParam("token") String token) throws IOException
     {
         this.session = session;
-        System.out.println("connected!");
         Integer userId = JwtAuthentication.getUserId(token);
         this.user = userMapper.selectById(userId);
+        System.out.println("User:" + user.getId() +" connected!");
 
         if (this.user != null) {
             users.put(userId, this);
@@ -76,7 +76,7 @@ public class WebSocketServer
     @OnClose // 关闭链接
     public void onClose()
     {
-        System.out.println("disconnected!");
+        System.out.println("User:" + user.getId() +" disconnected!");
         if(this.user != null){
             users.remove(this.user.getId());
 
@@ -156,7 +156,7 @@ public class WebSocketServer
     public void onMessage(String message, Session session)
     {
         // 从Client接收消息
-        System.out.println("receive message!");
+        System.out.println("receive message! " + "from User:" + user.getId());
         JSONObject data = JSONObject.parseObject(message);
         String event = data.getString("event");
         if("start-matching".equals(event))

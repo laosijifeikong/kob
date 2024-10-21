@@ -81,14 +81,29 @@ export default {
                 }
             })
         }
-
         refresh_bots();
+
+        const reset_buttons = () => {
+            if (match_btn_info.value === "取消") {
+                match_btn_info.value = "开始匹配";
+                console.log("自动取消匹配");
+                store.state.pk.socket.send(JSON.stringify({
+                    event: "stop-matching",
+                }))
+            }
+        }
 
         return {
             match_btn_info,
             click_match_btn,
             bots,
             select_bot,
+            reset_buttons
+        }
+    },
+    watch: {
+        select_bot() {
+            this.reset_buttons();
         }
     }
 }

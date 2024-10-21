@@ -11,7 +11,7 @@ public class ReceiveBotMoveServiceImpl implements ReceiveBotMoveService
     @Override
     public String receiveBotMove(Integer userId, Integer direction)
     {
-        System.out.println("receive bot move " + userId + " " + direction);
+        System.out.println(userId + " receive bot move " + direction);
         if(WebSocketServer.users.get(userId) != null){
             Game game = WebSocketServer.users.get(userId).game;
             if(game != null){

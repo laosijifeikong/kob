@@ -16,7 +16,7 @@ public class BotPool extends Thread
         try
         {
             bots.add(new Bot(userId, botCode, input));
-            condition.signalAll();
+            condition.signalAll();  //添加Bot到BotPool中后唤醒正在等待的BotPool线程
         } finally
         {
             lock.unlock();
