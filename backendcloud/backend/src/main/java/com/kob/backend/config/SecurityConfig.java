@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)// 禁用Session，采用无状态机制
                 .and()
                 .authorizeRequests() //开始配置请求权限
-                .antMatchers("/user/account/token", "/user/account/register").permitAll()// 允许未认证用户访问这些URL
+                .antMatchers("/api/user/account/token", "/api/user/account/register").permitAll()// 允许未认证用户访问这些URL
                 .antMatchers("/pk/start/game","/pk/receive/bot/move").hasIpAddress("127.0.0.1")
                 .antMatchers(HttpMethod.OPTIONS).permitAll() // 允许所有OPTIONS请求
                 .anyRequest().authenticated();// 其他请求都需要认证

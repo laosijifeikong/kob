@@ -58,7 +58,7 @@ export default {
         const click_page = nextpage => {
             if (nextpage === -2) nextpage = current_page - 1;
             else if (nextpage === -1) nextpage = current_page + 1;
-            let max_pages = parseInt(Math.ceil(total_users / 3));
+            let max_pages = parseInt(Math.ceil(total_users / 10));
 
             if (nextpage >= 1 && nextpage <= max_pages) {
                 pull_page(nextpage);
@@ -66,7 +66,7 @@ export default {
         }
 
         const update_pages = () => {   //控制显示页数数字
-            let max_pages = parseInt(Math.ceil(total_users / 3));
+            let max_pages = parseInt(Math.ceil(total_users / 10));
             let new_pages = [];
             for (let i = current_page - 2; i <= current_page + 2; i++) {
                 if (i >= 1 && i <= max_pages) {
@@ -82,7 +82,7 @@ export default {
         const pull_page = page => {   //拉取页面后更新显示页数数字和当前页数
             current_page = page;
             $.ajax({
-                url: "http://localhost:8088/ranklist/getlist",
+                url: "https://app7191.acapp.acwing.com.cn/api/ranklist/getlist",
                 type: "get",
                 data: {
                     page,

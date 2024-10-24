@@ -95,7 +95,7 @@ export default {
         const pull_page = page => {   //拉取页面后更新显示页数数字和当前页数
             current_page = page;
             $.ajax({
-                url: "http://localhost:8088/record/getlist",
+                url: "https://app7191.acapp.acwing.com.cn/api/record/getlist",
                 type: "get",
                 data: {
                     page,

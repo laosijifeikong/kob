@@ -38,7 +38,7 @@ export default {
     actions: {
         login(context, data) {
             $.ajax({
-                url: "http://localhost:8088/user/account/token",
+                url: "https://app7191.acapp.acwing.com.cn/api/user/account/token",
                 type: "post",
                 data: JSON.stringify({
                     username: data.username,
@@ -63,7 +63,7 @@ export default {
 
         getInfo(context, data) {
             $.ajax({
-                url: "http://localhost:8088/user/account/info",
+                url: "https://app7191.acapp.acwing.com.cn/api/user/account/info",
                 type: "get",
                 headers: {
                     Authorization: "Bearer " + context.state.token
