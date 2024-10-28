@@ -1,7 +1,7 @@
 <template lang="">
-    <ContentField>
+    <div class="loginground">
         <div class="row justify-content-md-center">
-            <div class="col-3">
+            <div class="col-11">
                 <form @submit.prevent = "login">
                     <div class="mb-3">
                         <label for="username" class="form-label">用户名</label>
@@ -16,18 +16,16 @@
                 </form>
             </div>
         </div>
-    </ContentField>
+    </div>
 </template>
 
 <script>
-import ContentField from "@/components/ContentField.vue"
 import { useStore } from "vuex";
 import { ref } from "vue";
 import router from "@/router/index"
 
 export default {
     components: {
-        ContentField
     },
     setup() {
         const store = useStore();
@@ -72,5 +70,16 @@ button {
 
 div.error-message {
     color: red;
+}
+
+div.loginground {
+    width: 25vw;
+    height: 30vh;
+    background: rgba(50, 50, 50, 0.5);
+    margin: 40px auto;
+}
+
+div.mb-3 {
+    color: white;
 }
 </style>

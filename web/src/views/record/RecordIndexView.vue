@@ -96,6 +96,7 @@ export default {
             current_page = page;
             $.ajax({
                 url: "https://app7191.acapp.acwing.com.cn/api/record/getlist",
+                // url: "http://localhost:8088/api/record/getlist",
                 type: "get",
                 data: {
                     page,

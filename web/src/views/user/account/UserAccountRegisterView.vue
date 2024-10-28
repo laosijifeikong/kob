@@ -1,7 +1,7 @@
 <template lang="">
-    <ContentField>
+    <div class="registground">
         <div class="row justify-content-md-center">
-            <div class="col-3">
+            <div class="col-11">
                 <form @submit.prevent = "register">
                     <div class="mb-3">
                         <label for="username" class="form-label">用户名</label>
@@ -20,18 +20,16 @@
                 </form>
             </div>
         </div>
-    </ContentField>
+    </div>
 </template>
 
 <script>
-import ContentField from "@/components/ContentField.vue"
 import { ref } from 'vue'
 import router from "@/router/index";
 import $ from "jquery"
 
 export default {
     components: {
-        ContentField
     },
     setup() {
         let username = ref('');
@@ -42,6 +40,7 @@ export default {
         const register = () => {
             $.ajax({
                 url: "https://app7191.acapp.acwing.com.cn/api/user/account/register",
+                // url: "http://localhost:8088/api/user/account/register",
                 type: "post",
                 data: {
                     username: username.value,
@@ -84,5 +83,16 @@ button {
 
 div.message {
     color: red;
+}
+
+div.registground {
+    width: 25vw;
+    height: 42vh;
+    background: rgba(50, 50, 50, 0.5);
+    margin: 40px auto;
+}
+
+label.form-label {
+    color: white;
 }
 </style>

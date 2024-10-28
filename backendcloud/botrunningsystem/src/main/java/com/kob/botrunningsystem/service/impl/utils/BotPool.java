@@ -10,7 +10,6 @@ public class BotPool extends Thread
     private final ReentrantLock lock = new ReentrantLock();
     private final Condition condition = lock.newCondition();
     private final Queue<Bot> bots = new LinkedList<>();
-
     public void addBot(Integer userId, String botCode, String input){
         lock.lock();
         try

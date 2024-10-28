@@ -22,6 +22,7 @@ export default {
     setup() {
         const store = useStore();
         const socketUrl = `wss://app7191.acapp.acwing.com.cn/websocket/${store.state.user.token}`;
+        // const socketUrl = `ws://localhost:8088/websocket/${store.state.user.token}`;
 
         store.commit("updateLoser", "none");
         store.commit("updateIsRecord", false);
@@ -47,10 +48,10 @@ export default {
                         username: data.opponent_username,
                         photo: data.opponent_photo,
                     })
+                    store.commit("updateGame", data.game);
                     setTimeout(() => {
                         store.commit("updateStatus", "playing")
-                    }, 200)
-                    store.commit("updateGame", data.game);
+                    }, 2000)
                 } else if (data.event === "move") {
                     console.log(data);
                     const game = store.state.pk.gameObject;
