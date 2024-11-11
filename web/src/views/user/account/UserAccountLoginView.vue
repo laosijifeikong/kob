@@ -14,6 +14,11 @@
                     <div class = "error-message">{{ message }}</div>
                     <button type="submit" class="btn btn-primary">提交</button>
                 </form>
+                <div style="text-align: center; margin-top: 20px; cursor: pointer;" @click="acwing_login">
+                    <img src="https://cdn.acwing.com/media/article/image/2022/09/06/1_32f001fd2d-acwing_logo.png" alt="">
+                    <br>
+                    AcWing一键登陆
+                </div>
             </div>
         </div>
     </div>
@@ -23,6 +28,7 @@
 import { useStore } from "vuex";
 import { ref } from "vue";
 import router from "@/router/index"
+import $ from "jquery";
 
 export default {
     components: {
@@ -52,11 +58,24 @@ export default {
             })
         }
 
+        const acwing_login = () => {
+            $.ajax({
+                url: "https://app7191.acapp.acwing.com.cn/api/user/account/acwing/web/apply_code",
+                type: "GET",
+                success: resp => {
+                    if (resp.result === "success") {
+                        window.location.replace(resp.apply_code_url)
+                    }
+                }
+            })
+        }
+
         return {
             username,
             password,
             message,
             login,
+            acwing_login,
         }
     }
 
@@ -74,7 +93,7 @@ div.error-message {
 
 div.loginground {
     width: 25vw;
-    height: 30vh;
+    height: 45vh;
     background: rgba(50, 50, 50, 0.5);
     margin: 40px auto;
 }

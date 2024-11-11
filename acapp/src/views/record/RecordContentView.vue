@@ -1,9 +1,9 @@
-<template lang="">
-    <PlayGround></PlayGround>
+<template>
+    <PlayGround />
 </template>
 
 <script>
-import PlayGround from "@/components/PlayGround.vue"
+import PlayGround from '../../components/PlayGround.vue'
 
 export default {
     components: {
@@ -14,4 +14,5 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

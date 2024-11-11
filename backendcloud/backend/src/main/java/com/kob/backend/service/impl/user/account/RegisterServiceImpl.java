@@ -13,8 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class RegisterServiceImpl implements RegisterService
-{
+public class RegisterServiceImpl implements RegisterService {
     @Autowired
     private UserMapper userMapper;
 
@@ -22,9 +21,8 @@ public class RegisterServiceImpl implements RegisterService
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public Map<String, String> register(String username, String password, String confirmedPassword)
-    {
-        Map<String, String > map = new HashMap<>();
+    public Map<String, String> register(String username, String password, String confirmedPassword) {
+        Map<String, String> map = new HashMap<>();
 
         if (username == null) {
             map.put("message", "用户名不能为空");
@@ -61,10 +59,9 @@ public class RegisterServiceImpl implements RegisterService
         }
 
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("username",username);
+        queryWrapper.eq("username", username);
         List<User> users = userMapper.selectList(queryWrapper);
-        if(!users.isEmpty())
-        {
+        if (!users.isEmpty()) {
             map.put("message", "用户名已存在");
             return map;
         }
@@ -72,7 +69,7 @@ public class RegisterServiceImpl implements RegisterService
         String encodedPassword = passwordEncoder.encode(password);
         String photo = "https://raw.githubusercontent.com/laosijifeikong/kob/refs/heads/master/web/src/assets/images/cutcamera.jpg";
 
-        User user = new User(null, username, encodedPassword, photo,1500);
+        User user = new User(null, username, encodedPassword, photo, 1500, null);
         userMapper.insert(user);
 
         map.put("message", "success");

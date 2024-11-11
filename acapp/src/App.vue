@@ -10,14 +10,14 @@
 </template>
 
 <script>
-import { useStore } from 'vuex';
+import { useStore } from 'vuex'
 import MenuView from './views/MenuView.vue'
 import PkIndexViewVue from "./views/pk/PkIndexView.vue"
 import RecordIndexViewVue from "./views/record/RecordIndexView.vue"
 import RecordContentViewVue from "./views/record/RecordContentView.vue"
 import RanklistIndexViewVue from "./views/ranklist/RanklistIndexView.vue"
 import UserBotIndexViewVue from "./views/user/bot/UserBotIndexView.vue"
-
+import $ from 'jquery'
 
 export default {
   components: {
@@ -31,38 +31,49 @@ export default {
   setup() {
     const store = useStore();
 
-    const jwt_token = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIwOTJlNTlkMjRmNmM0YmQ5ODQyMjM3OGYzZGY0NjQ5MiIsInN1YiI6IjEiLCJpc3MiOiJzZyIsImlhdCI6MTcyOTc4MjMxNCwiZXhwIjoxNzMwOTkxOTE0fQ.5uqrdpaajiAaRxXSafEiWcSgKGrd611Z5A05qQnf_OQ";
-    if (jwt_token) {
-      store.commit("updateToken", jwt_token);
-      store.dispatch("getInfo", {
-        success() {
-          store.commit("updatePullingInfo", false);
-        },
-        error(resp) {
-          console.log(resp)
+    $.ajax({
+      url: "https://app7191.acapp.acwing.com.cn/api/user/account/acwing/acapp/apply_code",
+      type: "GET",
+      success: resp => {
+        if (resp.result === "success") {
+          store.state.user.AcWingOS.api.oauth2.authorize(resp.appid, resp.redirect_uri, resp.scope, resp.state, resp => {
+            if (resp.result === "success") {
+              const jwt_token = resp.access_token;
+              store.commit("updateToken", jwt_token);
+              store.dispatch("getinfo", {
+                success() {
+                  store.commit("updatePullingInfo", false);
+                },
+                error() {
+                  store.commit("updatePullingInfo", false);
+                }
+              })
+            } else {
+              store.state.user.AcWingOS.api.window.close();
+            }
+          });
         }
-      })
-    } else {
-      store.commit("updatePullingInfo", false);
-    }
+        else {
+          store.state.user.AcWingOS.api.window.close();
+        }
+      },
+    })
   }
 }
+
 </script>
 
-
-<style>
+<style scoped>
 body {
   margin: 0;
 }
 
 div.game-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background-image: url("@/assets/images/background.jpg");
+  background-image: url("@/assets/images/background.png");
   background-size: cover;
+  width: 100%;
+  height: 100%;
 }
-
 
 div.window {
   width: 100vw;

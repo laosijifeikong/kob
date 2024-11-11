@@ -30,9 +30,8 @@ div.content-field {
     width: 100%;
     height: 100%;
 }
-
 div.go-back {
-    position: absolute;
+    position:absolute;
     right: 5vh;
     bottom: 5vh;
     color: white;
@@ -42,9 +41,8 @@ div.go-back {
     cursor: pointer;
     user-select: none;
 }
-
 div.go-back:hover {
-    scale: 1.2;
+    transform: scale(1.2);
     transition: 200ms;
 }
 </style>

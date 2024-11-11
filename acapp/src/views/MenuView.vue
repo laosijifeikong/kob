@@ -15,7 +15,7 @@ import { useStore } from 'vuex';
 export default {
     setup() {
         const store = useStore();
-
+        
         const click_pk_handler = () => {
             store.commit("updateRouterName", "pk");
         };
@@ -50,13 +50,11 @@ div.menu-field {
     width: 100%;
     height: 100%;
 }
-
 div.menu {
     width: 25vw;
     height: 30vh;
     background-color: rgba(0, 0, 0, 0.2);
 }
-
 div.menu-item {
     height: 7.5vh;
     width: 100%;
@@ -69,9 +67,8 @@ div.menu-item {
     cursor: pointer;
     user-select: none;
 }
-
 div.menu-item:hover {
-    scale: 1.2;
+    transform: scale(1.2);
     transition: 200ms;
 }
 </style>

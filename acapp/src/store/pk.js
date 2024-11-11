@@ -1,6 +1,6 @@
 export default {
     state: {
-        status: "matching", //matching表示匹配界面,playing表示对战界面
+        status: "matching",  // matching表示匹配界面，playing表示对战界面
         socket: null,
         opponent_username: "",
         opponent_photo: "",
@@ -12,7 +12,7 @@ export default {
         b_sx: 0,
         b_sy: 0,
         gameObject: null,
-        loser: "none", //all ,A ,B
+        loser: "none",  // none、all、A、B
     },
     getters: {
     },
@@ -22,7 +22,7 @@ export default {
         },
         updateOpponent(state, opponent) {
             state.opponent_username = opponent.username;
-            state.opponent_photo = opponent.photo
+            state.opponent_photo = opponent.photo;
         },
         updateStatus(state, status) {
             state.status = status;

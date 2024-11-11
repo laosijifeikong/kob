@@ -34,16 +34,12 @@
     </div>
 </template>
 
-
 <script>
-import { ref } from 'vue';
+import { ref } from 'vue'
 import { useStore } from 'vuex';
 import $ from 'jquery';
 
 export default {
-    components: {
-
-    },
     setup() {
         const store = useStore();
         let match_btn_info = ref("开始匹配");
@@ -53,62 +49,41 @@ export default {
         const click_match_btn = () => {
             if (match_btn_info.value === "开始匹配") {
                 match_btn_info.value = "取消";
-                console.log(select_bot);
                 store.state.pk.socket.send(JSON.stringify({
                     event: "start-matching",
                     bot_id: select_bot.value,
-                }))
+                }));
             } else {
-                match_btn_info.value = "开始匹配"
+                match_btn_info.value = "开始匹配";
                 store.state.pk.socket.send(JSON.stringify({
                     event: "stop-matching",
-                }))
+                }));
             }
         }
 
         const refresh_bots = () => {
             $.ajax({
                 url: "https://app7191.acapp.acwing.com.cn/api/user/bot/getlist",
-                // url: "http://localhost:8088/api/user/bot/getlist",
                 type: "get",
                 headers: {
-                    Authorization: "Bearer " + store.state.user.token
+                    Authorization: "Bearer " + store.state.user.token,
                 },
                 success(resp) {
                     bots.value = resp;
-                },
-                error(resp) {
-                    console.log(resp);
                 }
             })
         }
-        refresh_bots();
 
-        const reset_buttons = () => {
-            if (match_btn_info.value === "取消") {
-                match_btn_info.value = "开始匹配";
-                console.log("自动取消匹配");
-                store.state.pk.socket.send(JSON.stringify({
-                    event: "stop-matching",
-                }))
-            }
-        }
+        refresh_bots();  // 从云端动态获取bots
 
         return {
             match_btn_info,
             click_match_btn,
             bots,
             select_bot,
-            reset_buttons
-        }
-    },
-    watch: {
-        select_bot() {
-            this.reset_buttons();
         }
     }
 }
-
 </script>
 
 <style scoped>

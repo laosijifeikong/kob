@@ -5,9 +5,9 @@
 </template>
 
 <script>
-import { GameMap } from '@/assets/scripts/GameMap';
+import { GameMap } from "@/assets/scripts/GameMap";
 import { ref, onMounted } from 'vue'
-import { useStore } from 'vuex';
+import { useStore } from "vuex";
 
 export default {
     setup() {
@@ -16,7 +16,10 @@ export default {
         let canvas = ref(null);
 
         onMounted(() => {
-            store.commit("updateGameObject", new GameMap(canvas.value.getContext('2d'), parent.value, store));
+            store.commit(
+                "updateGameObject",
+                new GameMap(canvas.value.getContext('2d'), parent.value, store)
+            );
         });
 
         return {
@@ -24,7 +27,6 @@ export default {
             canvas
         }
     }
-
 }
 </script>
 

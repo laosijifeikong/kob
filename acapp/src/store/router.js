@@ -1,6 +1,6 @@
 export default {
     state: {
-        router_name: "menu",
+        router_name: "menu",  // menu, pk, record, record_content, ranklist, user_bot
     },
     getters: {
     },
